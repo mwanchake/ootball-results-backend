@@ -7,6 +7,8 @@ public record MatchDto(
     String league,
     String home,
     String away,
+    String homeLogo,
+    String awayLogo,
     Integer homeGoals,
     Integer awayGoals,
     String matchDate,

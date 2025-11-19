@@ -30,7 +30,7 @@ public class MatchRepositoryJdbc {
 
     public List<MatchDto> findByDateAndLeague(String date, String league, int limit, int offset) {
         StringBuilder sql = new StringBuilder();
-    sql.append("SELECT id, league, hometeam AS home, awayteam AS away, hometeam_goals AS home_goals, awayteam_goals AS away_goals, kickoff AS match_date, match_time, match_completion ");
+    sql.append("SELECT id, league, hometeam AS home, awayteam AS away, hometeam_logo AS home_logo, awayteam_logo AS away_logo, hometeam_goals AS home_goals, awayteam_goals AS away_goals, kickoff AS match_date, match_time, match_completion ");
         sql.append("FROM matches ");
         sql.append("WHERE (:league IS NULL OR TRIM(LOWER(league)) = TRIM(LOWER(:league))) ");
         sql.append("AND (:date IS NULL OR DATE(kickoff) = :date) ");
@@ -191,6 +191,9 @@ public class MatchRepositoryJdbc {
                 rs.getString("league"),
                 rs.getString("home"),
                 rs.getString("away"),
+                // logos
+                rs.getString("home_logo"),
+                rs.getString("away_logo"),
                 homeGoalsVal,
                 awayGoalsVal,
                 matchDateStr,
@@ -220,7 +223,7 @@ public class MatchRepositoryJdbc {
      */
     public List<MatchDto> findAllByDateAndLeague(String date, String league) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id, league, hometeam AS home, awayteam AS away, hometeam_goals AS home_goals, awayteam_goals AS away_goals, kickoff AS match_date, match_time, match_completion ");
+        sql.append("SELECT id, league, hometeam AS home, awayteam AS away, hometeam_logo AS home_logo, awayteam_logo AS away_logo, hometeam_goals AS home_goals, awayteam_goals AS away_goals, kickoff AS match_date, match_time, match_completion ");
         sql.append("FROM matches ");
         sql.append("WHERE (:league IS NULL OR TRIM(LOWER(league)) = TRIM(LOWER(:league))) ");
         sql.append("AND (:date IS NULL OR DATE(kickoff) = :date) ");
@@ -365,6 +368,9 @@ public class MatchRepositoryJdbc {
                 rs.getString("league"),
                 rs.getString("home"),
                 rs.getString("away"),
+                // logos
+                rs.getString("home_logo"),
+                rs.getString("away_logo"),
                 homeGoalsVal,
                 awayGoalsVal,
                 matchDateStr,
